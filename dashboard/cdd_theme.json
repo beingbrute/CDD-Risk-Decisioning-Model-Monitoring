@@ -1,0 +1,94 @@
+{
+  "name": "CDD Risk Monitoring",
+  "dataColors": [
+    "#1F3A5F", "#E07B00", "#8C96A3", "#2E6DA4", "#C0392B",
+    "#2E8B57", "#7FA7CF", "#F2B66D", "#5B6573", "#A9CCE3"
+  ],
+  "background": "#FFFFFF",
+  "foreground": "#1F2A37",
+  "tableAccent": "#1F3A5F",
+  "good": "#2E8B57",
+  "neutral": "#E07B00",
+  "bad": "#C0392B",
+  "maximum": "#1F3A5F",
+  "center": "#A9CCE3",
+  "minimum": "#F5F7FA",
+  "textClasses": {
+    "callout": { "fontSize": 26, "fontFace": "Segoe UI Semibold", "color": "#1F3A5F" },
+    "title":   { "fontSize": 11, "fontFace": "Segoe UI Semibold", "color": "#1F3A5F" },
+    "header":  { "fontSize": 11, "fontFace": "Segoe UI Semibold", "color": "#1F2A37" },
+    "label":   { "fontSize": 9,  "fontFace": "Segoe UI", "color": "#4A5563" }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "title": [{
+          "show": true,
+          "fontFamily": "Segoe UI Semibold",
+          "fontSize": 11,
+          "fontColor": { "solid": { "color": "#1F3A5F" } }
+        }],
+        "background": [{
+          "show": true,
+          "color": { "solid": { "color": "#FFFFFF" } },
+          "transparency": 0
+        }],
+        "border": [{
+          "show": true,
+          "color": { "solid": { "color": "#D9DEE5" } },
+          "radius": 6
+        }]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [{
+          "color": { "solid": { "color": "#F3F5F8" } },
+          "transparency": 0
+        }]
+      }
+    },
+    "tableEx": {
+      "*": {
+        "columnHeaders": [{
+          "fontColor": { "solid": { "color": "#FFFFFF" } },
+          "backColor": { "solid": { "color": "#1F3A5F" } },
+          "fontFamily": "Segoe UI Semibold",
+          "fontSize": 9
+        }],
+        "values": [{
+          "fontSize": 9,
+          "fontColorPrimary": { "solid": { "color": "#1F2A37" } },
+          "backColorPrimary": { "solid": { "color": "#FFFFFF" } },
+          "fontColorSecondary": { "solid": { "color": "#1F2A37" } },
+          "backColorSecondary": { "solid": { "color": "#F5F7FA" } }
+        }],
+        "grid": [{ "gridHorizontal": true, "gridHorizontalColor": { "solid": { "color": "#E5E8EC" } } }]
+      }
+    },
+    "pivotTable": {
+      "*": {
+        "columnHeaders": [{
+          "fontColor": { "solid": { "color": "#FFFFFF" } },
+          "backColor": { "solid": { "color": "#1F3A5F" } },
+          "fontFamily": "Segoe UI Semibold",
+          "fontSize": 9
+        }],
+        "rowHeaders": [{ "fontSize": 9, "fontColor": { "solid": { "color": "#1F2A37" } } }],
+        "values": [{ "fontSize": 9 }]
+      }
+    },
+    "slicer": {
+      "*": {
+        "header": [{ "fontColor": { "solid": { "color": "#1F3A5F" } }, "fontFamily": "Segoe UI Semibold", "textSize": 10 }],
+        "items":  [{ "textSize": 9 }]
+      }
+    },
+    "textbox": {
+      "*": {
+        "background": [{ "show": false }],
+        "border": [{ "show": false }]
+      }
+    }
+  }
+}

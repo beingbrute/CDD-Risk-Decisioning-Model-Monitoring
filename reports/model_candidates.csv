@@ -1,0 +1,8 @@
+candidate,family,val_auc,val_pr_auc,val_brier
+logreg_C0.05,logistic_regression,0.784,0.41,0.1179
+logreg_C0.3,logistic_regression,0.785,0.411,0.1178
+logreg_C1.0,logistic_regression,0.785,0.412,0.1178
+rf_depth6,random_forest,0.777,0.397,0.1204
+rf_depthNone,random_forest,0.782,0.409,0.1192
+rules process (rule points),baseline,0.619,0.244,
+bank risk rating,baseline,0.512,0.17,

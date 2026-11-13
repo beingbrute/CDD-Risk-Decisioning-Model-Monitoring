@@ -1,0 +1,68 @@
+check_name,severity,table_name,record_key,detail
+activity_orphan_customer,error,monthly_activity,CUST09000,1 activity row(s)
+activity_orphan_customer,error,monthly_activity,CUST09001,1 activity row(s)
+activity_orphan_customer,error,monthly_activity,CUST09002,1 activity row(s)
+activity_orphan_customer,error,monthly_activity,CUST09003,1 activity row(s)
+activity_orphan_customer,error,monthly_activity,CUST09004,1 activity row(s)
+activity_orphan_customer,error,monthly_activity,CUST09005,1 activity row(s)
+company_without_register,error,customers,CUST00052,no shareholders recorded
+company_without_register,error,customers,CUST00628,no shareholders recorded
+company_without_register,error,customers,CUST02351,no shareholders recorded
+company_without_register,error,customers,CUST04191,no shareholders recorded
+company_without_register,error,customers,CUST04580,no shareholders recorded
+duplicate_customer_id,error,customers,CUST00579,appears 2 times
+duplicate_customer_id,error,customers,CUST01708,appears 2 times
+duplicate_customer_id,error,customers,CUST02884,appears 2 times
+duplicate_customer_id,error,customers,CUST04068,appears 2 times
+duplicate_customer_id,error,customers,CUST04505,appears 2 times
+invalid_risk_rating,error,customers,CUST00494,"risk_rating = ""Hgh"""
+invalid_risk_rating,error,customers,CUST00500,"risk_rating = ""LOW """
+invalid_risk_rating,error,customers,CUST02482,"risk_rating = ""Med"""
+invalid_risk_rating,error,customers,CUST02519,"risk_rating = ""Unknown"""
+invalid_risk_rating,error,customers,CUST03400,"risk_rating = ""medium"""
+invalid_risk_rating,error,customers,CUST04704,"risk_rating = ""N/A"""
+missing_country_code,error,customers,CUST00558,country_code is blank
+missing_country_code,error,customers,CUST00850,country_code is blank
+missing_country_code,error,customers,CUST02968,country_code is blank
+missing_country_code,error,customers,CUST03253,country_code is blank
+missing_country_code,error,customers,CUST03266,country_code is blank
+missing_country_code,error,customers,CUST03769,country_code is blank
+missing_country_code,error,customers,CUST03793,country_code is blank
+missing_country_code,error,customers,CUST03950,country_code is blank
+negative_txn_value,error,monthly_activity,CUST00973,2025-12: -13945.79
+negative_txn_value,error,monthly_activity,CUST02919,2025-12: -99237.49
+negative_txn_value,error,monthly_activity,CUST03579,2025-12: -11238.14
+negative_txn_value,error,monthly_activity,CUST03996,2025-12: -10920.47
+negative_txn_value,error,monthly_activity,CUST04697,2025-12: -2504.03
+pep_rating_policy_exception,warning,customers,CUST01366,domestic PEP rated Low
+pep_rating_policy_exception,warning,customers,CUST03254,domestic PEP rated Low
+pep_rating_policy_exception,warning,customers,CUST04240,domestic PEP rated Low
+pep_rating_policy_exception,warning,customers,CUST04252,domestic PEP rated Low
+pep_rating_policy_exception,warning,customers,CUST04314,domestic PEP rated Low
+register_not_100,error,company_shareholders,CUST01685,shares total 115.0%
+register_not_100,error,company_shareholders,CUST01811,shares total 115.0%
+register_not_100,error,company_shareholders,CUST02382,shares total 115.0%
+register_not_100,error,company_shareholders,CUST02447,shares total 115.0%
+register_not_100,error,company_shareholders,CUST03527,shares total 115.0%
+register_not_100,error,company_shareholders,CUST03802,shares total 115.0%
+register_not_100,error,company_shareholders,CUST04956,shares total 115.0%
+review_cycle_mismatch,error,customers,CUST00115,"Low: expected 2028-07-27, recorded 2030-07-27"
+review_cycle_mismatch,error,customers,CUST00439,"Medium: expected 2027-08-08, recorded 2030-08-07"
+review_cycle_mismatch,error,customers,CUST00981,"Low: expected 2026-01-12, recorded 2028-01-12"
+review_cycle_mismatch,error,customers,CUST01823,"Low: expected 2028-12-09, recorded 2030-12-09"
+review_cycle_mismatch,error,customers,CUST02347,"Low: expected 2026-11-06, recorded 2028-11-05"
+review_cycle_mismatch,error,customers,CUST03072,"Low: expected 2026-06-14, recorded 2028-06-13"
+review_date_in_future,error,customers,CUST00880,last_review_date = 2026-02-14
+review_date_in_future,error,customers,CUST01090,last_review_date = 2026-02-14
+review_date_in_future,error,customers,CUST01909,last_review_date = 2026-02-14
+review_date_in_future,error,customers,CUST01931,last_review_date = 2026-02-14
+verified_doc_expired,error,documents,CUST00221,Photo ID expired 2025-05-27
+verified_doc_expired,error,documents,CUST00238,Photo ID expired 2025-09-16
+verified_doc_expired,error,documents,CUST00772,Photo ID expired 2025-09-19
+verified_doc_expired,error,documents,CUST01683,Photo ID expired 2025-09-22
+verified_doc_expired,error,documents,CUST01860,Photo ID expired 2025-04-12
+verified_doc_expired,error,documents,CUST02899,Photo ID expired 2024-12-25
+verified_doc_expired,error,documents,CUST02991,Photo ID expired 2024-12-04
+verified_doc_expired,error,documents,CUST04029,Photo ID expired 2025-08-05
+verified_doc_expired,error,documents,CUST04038,Photo ID expired 2025-04-29
+verified_doc_expired,error,documents,CUST04946,Photo ID expired 2024-12-09

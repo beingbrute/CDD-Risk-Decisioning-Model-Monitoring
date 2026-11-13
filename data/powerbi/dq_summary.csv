@@ -1,0 +1,12 @@
+check_name,table_name,severity,records_failed,status,description
+activity_orphan_customer,monthly_activity,error,6,FAIL,Activity for a customer ID that is not in the customer table
+company_without_register,customers,error,5,FAIL,Company customer has no shareholder register
+duplicate_customer_id,customers,error,5,FAIL,Customer ID appears more than once
+invalid_risk_rating,customers,error,6,FAIL,"Risk rating is not exactly Low, Medium or High"
+missing_country_code,customers,error,8,FAIL,Country of residence or establishment is blank
+negative_txn_value,monthly_activity,error,5,FAIL,Monthly transaction value is negative
+pep_rating_policy_exception,customers,warning,5,WARN,"PEP rated below internal policy (non-domestic PEP not High, or domestic PEP rated Low)"
+register_not_100,company_shareholders,error,7,FAIL,Shareholdings in a company's complete register do not add up to 100%
+review_cycle_mismatch,customers,error,6,FAIL,"Next review due date does not match the rating's review cycle (High 1, Medium 2, Low 3 years of 365 days)"
+review_date_in_future,customers,error,4,FAIL,Last review date is after the as-at date
+verified_doc_expired,documents,error,10,FAIL,Document marked Verified but its expiry date has passed

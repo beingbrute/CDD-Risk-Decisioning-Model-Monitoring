@@ -1,0 +1,12 @@
+check_name,expected,found,matched,missed,extra
+activity_orphan_customer,6,6,6,0,0
+company_without_register,5,5,5,0,0
+duplicate_customer_id,5,5,5,0,0
+invalid_risk_rating,6,6,6,0,0
+missing_country_code,8,8,8,0,0
+negative_txn_value,5,5,5,0,0
+pep_rating_policy_exception,5,5,5,0,0
+register_not_100,7,7,7,0,0
+review_cycle_mismatch,6,6,6,0,0
+review_date_in_future,4,4,4,0,0
+verified_doc_expired,10,10,10,0,0

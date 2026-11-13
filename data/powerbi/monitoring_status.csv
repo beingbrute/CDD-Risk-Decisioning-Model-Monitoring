@@ -1,0 +1,7 @@
+month,period,auc,auc_vs_validation,max_portfolio_psi,max_model_input_psi,score_psi,breach,watch,status
+2025-07-01,validation,0.809,0.024,0.003,0.048,0.038,0,0,STABLE (pre-deployment)
+2025-08-01,validation,0.765,-0.02,0.002,0.032,0.069,0,0,STABLE (pre-deployment)
+2025-09-01,test,0.762,-0.023,0.003,0.048,0.077,0,0,STABLE (pre-deployment)
+2025-10-01,monitoring,0.74,-0.045,0.111,0.04,0.061,0,1,INVESTIGATE
+2025-11-01,monitoring,0.738,-0.047,0.204,0.16,0.042,0,1,INVESTIGATE
+2025-12-01,monitoring,0.816,0.031,0.286,0.248,0.074,1,1,ACT

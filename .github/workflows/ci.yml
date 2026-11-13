@@ -1,0 +1,42 @@
+# Rebuilds the whole pipeline from scratch in a clean PostgreSQL and runs the tests,
+# on every push and pull request.
+name: pipeline-tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: ci-only-password     # throwaway database inside the CI runner
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      PGHOST: localhost
+      PGPORT: "5432"
+      PGUSER: postgres
+      PGPASSWORD: ci-only-password
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: 1. Generate synthetic data
+        run: python src/generate_data.py
+      - name: 2. Load RAW
+        run: python src/load_postgres.py
+      - name: 3-6. Staging, data quality, rules, queue, rule effectiveness, features
+        run: python src/run_sql.py
+      - name: 7. Train and validate model
+        run: python src/train_model.py
+      - name: 8. Monitoring
+        run: python src/monitor.py
+      - name: 9. Tests
+        run: python -m pytest -v

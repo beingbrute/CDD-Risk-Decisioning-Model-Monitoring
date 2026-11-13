@@ -1,0 +1,13 @@
+rule_code,description,next_action,legal_basis,basis_type,weight
+R01,Customer established in a UK high-risk third country on the review date,Enhanced due diligence,"Money Laundering Regulations 2017 reg. 33(1)(b), 33(3)(a) as amended by SI 2024/69",Required by regulation,25
+R02,Beneficial owner (more than 25%) established in a FATF-listed jurisdiction,Geographical risk assessment; apply EDD if the relationship is assessed as high risk,"Money Laundering Regulations 2017 reg. 28(3A), 33(1)(a), 33(6)(c)",Risk factor; outcome is a bank judgement,15
+R03,Customer or beneficial owner is a PEP,"EDD, senior management approval, source of wealth and funds, enhanced ongoing monitoring","Money Laundering Regulations 2017 reg. 33(1)(d), 35(5)(a)-(c); domestic PEPs lower starting risk, reg. 35(3A)",Required by regulation,25
+R04,Unresolved potential sanctions screening match,Refer to sanctions team before any further dealing,UK financial sanctions regimes under the Sanctions and Anti-Money Laundering Act 2018,Legal prohibition on dealing with designated persons; referral process is bank policy,40
+R05,Adverse media on the customer,Risk review,"Money Laundering Regulations 2017 reg. 33(1)(a), 33(1)(g)",Bank policy,10
+R06,Monthly activity more than 2x declared expected turnover,Examine background and purpose; request source of funds,"Money Laundering Regulations 2017 reg. 33(1)(f), 33(4), 28(11)(a)",Illustrative threshold (2x),15
+R07,Cash share of activity above 30%,Activity review,Money Laundering Regulations 2017 reg. 33(6)(a)(v) (cash-intensive business),Illustrative threshold (30%),10
+R08,Share of flows to or from FATF-listed jurisdictions above 10%,Activity review,"Money Laundering Regulations 2017 reg. 33(6)(c), 28(11)(a)",Illustrative threshold (10%),15
+R09,Two or more transaction-monitoring alerts in the month,Trigger review,Money Laundering Regulations 2017 reg. 28(11)(a),Illustrative threshold (2 alerts),15
+R10,"Identity, address or incorporation document missing, pending or expired",Refresh CDD documents,"Money Laundering Regulations 2017 reg. 28(2)(a)-(b), 28(3), 28(11)(b)",Regulation requires up-to-date CDD; treatment of expired documents is bank policy,10
+R11,"Company with no shareholder register, or a beneficial owner (more than 25%) not verified",Identify and verify beneficial owners,"Money Laundering Regulations 2017 reg. 5(1)(b), 28(3A), 28(4)",Required by regulation (more than 25%),15
+R12,"Periodic review overdue (High 1 year, Medium 2 years, Low 3 years)",Schedule review,Money Laundering Regulations 2017 reg. 28(11)(b),Illustrative review cycle,10
