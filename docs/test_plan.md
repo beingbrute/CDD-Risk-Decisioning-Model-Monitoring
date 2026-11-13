@@ -35,7 +35,7 @@ in force during 2025. 67 planted data-quality issues listed in `data/raw/expecte
 | TC15 | Dashboard page 3: FATF matrix | 4 list versions; Nigeria not listed in 2025-10; Iran, Myanmar, DPRK call for action | As expected after D2 fix | Pass |
 | TC16 | Dashboard page 4: model and monitoring | Drift crosses 0.1 in Oct and 0.25 in Dec; AUC above 0.751 every month | Portfolio PSI 0.10 (Oct), 0.29 (Dec); lowest AUC 0.785 (Dec) | Pass |
 | TC17 | Automated tests (`pytest`) | 57 passed | 57 passed in 5.09 s (13 Nov 2026, 21:26) | Pass |
-| TC18 | CI on GitHub (`.github/workflows/ci.yml`) | Full pipeline rebuilt from scratch, Power BI export produced, all tests pass | Runs #1-#2 passed with the earlier version; re-run after D5 pending | Pending |
+| TC18 | CI on GitHub (`.github/workflows/ci.yml`) | Full pipeline rebuilt from scratch, Power BI export produced, all tests pass | Run #3 (commit b1611d6, after D5 fix) passed in 1 min 13 s: pipeline rebuilt, export produced, 57 tests passed | Pass |
 
 ## 2. Automated tests (`tests/`)
 
