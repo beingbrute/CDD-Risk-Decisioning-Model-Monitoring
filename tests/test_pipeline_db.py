@@ -44,7 +44,8 @@ def _cases_with_activity(raw):
     c = raw("customers").drop_duplicates("customer_id")
     a = raw("monthly_activity")
     k = raw("review_cases")
-    return (k.merge(a, left_on=["customer_id", "review_month"], right_on=["customer_id", "month"])
+    k = k.assign(prev=(pd.PeriodIndex(k.review_month, freq="M") - 1).astype(str))   # last completed month
+    return (k.merge(a, left_on=["customer_id", "prev"], right_on=["customer_id", "month"])
              .merge(c, on="customer_id"))
 
 
@@ -125,9 +126,10 @@ def test_missing_history_stays_missing_regression_d1(q):
              "WHERE log_last_turnover_ratio <= ln(0.05) + 1e-9") == 0
 
 
-def test_every_case_is_scored_once(q):
+def test_every_case_is_scored_once(q, raw):
+    raw_cases = raw("review_cases")
     assert q("SELECT COUNT(*) FROM analytics.model_scores") == \
-           q("SELECT COUNT(*) FROM analytics.model_features") == 6374
+           q("SELECT COUNT(*) FROM analytics.model_features") == len(raw_cases)
 
 
 def test_threshold_matches_rules_recall_on_validation(q):
@@ -150,3 +152,33 @@ def test_no_drift_before_deployment(q):
 def test_december_drift_breach_but_no_retraining_trigger(q):
     assert q("SELECT status FROM analytics.monitoring_status WHERE month = DATE '2025-12-01'") == "ACT"
     assert q("SELECT COUNT(*) FROM analytics.monitoring_status WHERE status = 'RETRAIN REVIEW'") == 0
+
+
+# ---------------------------------------------------------------- information cutoff (audit findings)
+def test_case_rules_use_only_months_completed_before_the_review(q):
+    assert q("""SELECT COUNT(*) FROM analytics.rule_evaluations
+                WHERE eval_type = 'CASE'
+                  AND activity_month >= date_trunc('month', eval_date)::date""") == 0
+
+
+def test_trigger_reviews_come_from_previous_month_alerts(raw):
+    a = raw("monthly_activity")
+    k = raw("review_cases")
+    k = k[k.review_type == "Trigger"].copy()
+    k["prev"] = (pd.PeriodIndex(k.review_month, freq="M") - 1).astype(str)
+    m = k.merge(a, left_on=["customer_id", "prev"], right_on=["customer_id", "month"], how="left")
+    assert len(m) == len(k)
+    assert (m.tm_alerts > 0).all()
+
+
+def test_model_does_not_use_the_31_december_risk_rating():
+    from train_model import FEATURES
+    assert "bank_risk_rating" not in FEATURES
+
+
+def test_r01_only_fires_when_the_country_is_listed_on_the_review_date(q):
+    assert q("""SELECT COUNT(*) FROM analytics.rule_hits h
+                JOIN analytics.rule_evaluations e USING (eval_id)
+                JOIN staging.customers c ON c.customer_id = e.customer_id
+                WHERE h.rule_code = 'R01'
+                  AND analytics.fatf_status_on(c.country_code, e.eval_date) = 'Not listed'""") == 0

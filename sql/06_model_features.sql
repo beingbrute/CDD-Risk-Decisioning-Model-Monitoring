@@ -8,9 +8,10 @@
 --     (the latest full month and the three before it). The review month's own
 --     totals include days after the review date, so they are not used.
 --   * Country and beneficial-owner country status are taken on the review date.
---   * Rule features use only rules whose inputs are known on the review date:
---     R01-R05, R10, R11. Activity rules R06-R09 are evaluated on the review
---     month, so they are excluded from the features.
+--   * Rule flags R01-R05, R10, R11 are used as features. Activity rules R06-R09
+--     are not, because the model already sees the same activity as raw values.
+--   * The bank's risk rating is kept in this table only for a retrospective
+--     baseline: it is the rating as at 31 Dec 2025, so the model does not use it.
 --   * Documents and the shareholder register exist only as a 31 Dec 2025
 --     snapshot (limitation stated in the README).
 --

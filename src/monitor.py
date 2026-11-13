@@ -134,7 +134,7 @@ def main():
 
     # ---------- drift ----------
     rows = []
-    base_act = act[act.month_start <= BASELINE_END]
+    base_act = act[(act.month_start >= "2025-01-01") & (act.month_start <= BASELINE_END)]
     base_cases = cases[cases.review_date <= BASELINE_END]
     months = sorted(cases.month[cases.review_date > BASELINE_END].unique())
     for m in months:

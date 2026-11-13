@@ -12,7 +12,7 @@ Outputs in data/raw/:
   company_shareholders.csv  complete register of direct shareholders of company customers;
                             beneficial owners are the shareholders holding more than 25%
   documents.csv             identity / address / incorporation documents
-  monthly_activity.csv      one row per customer per month, Jan-Dec 2025
+  monthly_activity.csv      one row per customer per month, Oct 2024-Dec 2025
   review_cases.csv          analyst review cases with the outcome (escalated or not)
   expected_issues.csv       answer key: every planted data-quality issue
 
@@ -23,6 +23,10 @@ Design points:
   FATF lists "High-Risk Jurisdictions subject to a Call for Action" or "Jurisdictions under
   Increased Monitoring", as they have effect from time to time. Country status is therefore
   looked up on the date of each review, not taken from today's list.
+- Information cutoff: reviews happen during 2025; each review uses only activity from
+  months completed before the review month (trigger alerts, rules, model features and the
+  simulated outcome all follow this). Activity starts in October 2024 so January reviews
+  have history. Documents and shareholder registers exist only as a 31 Dec 2025 snapshot.
 - The escalation outcome is simulated separately from the CDD rules. It depends on customer
   attributes, activity and a hidden factor that no rule or model sees, so a model cannot
   score perfectly by re-learning a rule.
@@ -37,7 +41,8 @@ import pandas as pd
 SEED = 42
 N_CUSTOMERS = 5000
 AS_OF = pd.Timestamp("2025-12-31")
-MONTHS = pd.period_range("2025-01", "2025-12", freq="M")
+MONTHS = pd.period_range("2025-01", "2025-12", freq="M")              # review months
+ACTIVITY_MONTHS = pd.period_range("2024-10", "2025-12", freq="M")     # 3 earlier months give history
 DRIFT_RAMP = {"2025-10": 0.5, "2025-11": 0.8, "2025-12": 1.0}
 HOME = "GB"
 
@@ -150,7 +155,7 @@ cdd_rules = pd.DataFrame([
      "Trigger review", f"{MLR} reg. 28(11)(a)", "Illustrative threshold (2 alerts)"),
     ("R10", "Identity, address or incorporation document missing, pending or expired",
      "Refresh CDD documents", f"{MLR} reg. 28(2)(a)-(b), 28(3), 28(11)(b)",
-     "Regulation requires up-to-date CDD; treatment of expired documents is bank policy"),
+     "Bank policy applying the duty to keep CDD up to date"),
     ("R11", "Company with no shareholder register, or a beneficial owner (more than 25%) not verified",
      "Identify and verify beneficial owners", f"{MLR} reg. 5(1)(b), 28(3A), 28(4)",
      "Required by regulation (more than 25%)"),
@@ -296,7 +301,7 @@ behaviour = 0.35 * hidden + rng.normal(0, 0.25, N_CUSTOMERS)     # hidden concer
 
 act_rows = []
 onboard_period = pd.PeriodIndex(onboard, freq="M")
-for m in MONTHS:
+for m in ACTIVITY_MONTHS:
     active = onboard_period <= m
     ramp = DRIFT_RAMP.get(str(m), 0.0)
     drift = ramp * (channel == "Online") * np.where(onboard_period >= pd.Period("2025-01", freq="M"), 2.0, 1.0)
@@ -322,8 +327,13 @@ act_idx = activity.set_index(["customer_id", "month"])
 owner_level_by_version = {v[0]: owner_level(v[1]) for v in FATF_VERSIONS}
 case_rows = []
 case_no = 0
+# Information cutoff: a review in month m happens on a date inside month m, so only months
+# completed before it are known. Trigger reviews come from the previous month's monitoring
+# alerts, and the analyst's decision (the outcome) depends on the previous month's activity,
+# never on activity after the review date.
 for m in MONTHS:
-    month_act = activity[activity.month == str(m)]
+    prev = m - 1
+    month_act = activity[activity.month == str(prev)]
     trig = month_act[month_act.tm_alerts > 0].customer_id
     trig = set(trig[rng.random(len(trig)) < 0.6])
     periodic = set(month_act.customer_id.sample(frac=0.04, random_state=int(rng.integers(1e9))))
@@ -333,7 +343,7 @@ for m in MONTHS:
         ver = version_on(review_date)
         cl = LEVEL.get((country[i], ver), 0)                       # status on the review date
         ol = owner_level_by_version[ver][i]
-        a = act_idx.loc[(cid, str(m))]
+        a = act_idx.loc[(cid, str(prev))]                         # last completed month
         r = a.txn_value / turnover[i]
         logit = (-3.5
                  + 1.0 * cl + 0.5 * ol + 0.5 * or_num[i]

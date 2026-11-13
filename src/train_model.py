@@ -58,7 +58,8 @@ N_BOOT = 2000
 FEATURES = [
     # customer profile
     "is_company", "channel_online", "channel_intermediary", "industry_risk", "cash_intensive",
-    "tenure_years", "bank_risk_rating", "domestic_pep", "non_domestic_pep", "trigger_review",
+    "tenure_years", "domestic_pep", "non_domestic_pep", "trigger_review",
+    # bank_risk_rating is excluded: it is the 31 Dec 2025 rating, not the rating on the review date
     # rules known on the review date
     "r01_hrtc_customer", "r02_hrtc_owner", "r03_pep", "r04_sanctions_hit",
     "r05_adverse_media", "r10_document_gap", "r11_ownership_gap",
@@ -170,7 +171,8 @@ def main():
                      "val_pr_auc": round(average_precision_score(y["validation"], s), 3),
                      "val_brier": round(brier_score_loss(y["validation"], s), 4)})
     cand = pd.DataFrame(rows)
-    for base, col in [("rules process (rule points)", "rule_points"), ("bank risk rating", "bank_risk_rating")]:
+    for base, col in [("rules process (rule points)", "rule_points"),
+                      ("bank risk rating (31 Dec 2025, retrospective)", "bank_risk_rating")]:
         s = part["validation"][col].fillna(1).to_numpy()
         cand.loc[len(cand)] = {"candidate": base, "family": "baseline",
                                "val_auc": round(roc_auc_score(y["validation"], s), 3),
@@ -300,10 +302,12 @@ factor that no rule or model sees, so the model cannot score perfectly by re-lea
 | Test | Sep 2025 | {len(part['test'])} | {int(yt.sum())} | Final test, used once |
 | Monitoring | Oct-Dec 2025 | {len(part['monitoring'])} | {int(y['monitoring'].sum())} | Post-deployment monitoring (monitor.py) |
 
-**Leakage controls:** activity features use only completed months before the review month;
-country status is taken on the review date; activity rules R06-R09 (evaluated on the review
-month) are not used as features. January cases have no earlier activity (the data starts
-in January); missing activity is imputed with an indicator flag.
+**Information cutoff (same for model, rules and simulated outcome):** only activity from
+months completed before the review month is used; country status is taken on the review
+date. The bank's risk rating is a 31 Dec 2025 value, so it is excluded from the model and
+shown only as a retrospective baseline. Documents and shareholder registers exist only as a
+31 Dec 2025 snapshot (stated limitation). New customers with no earlier activity get an
+indicator flag.
 
 ## 3. Candidates on validation
 {md_table(cand)}
@@ -330,7 +334,7 @@ Brier score on validation: {cand.set_index('candidate').loc[champion, 'val_brier
 Segments are small; differences should be read with that in mind.
 
 ## 7. Final test (September 2025, used once)
-| Measure | Model | Rules process | Bank risk rating |
+| Measure | Model | Rules process | Bank risk rating (31 Dec 2025, retrospective) |
 |---|---|---|---|
 | AUC (95% bootstrap CI) | {test['auc']:.3f} ({test['auc_ci'][0]:.3f}-{test['auc_ci'][1]:.3f}) | {test['rules_auc']:.3f} (rule points) | {test['rating_auc']:.3f} |
 | PR-AUC (95% bootstrap CI) | {test['pr_auc']:.3f} ({test['pr_auc_ci'][0]:.3f}-{test['pr_auc_ci'][1]:.3f}) | | |

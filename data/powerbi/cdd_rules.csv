@@ -8,6 +8,6 @@ R06,Monthly activity more than 2x declared expected turnover,Examine background 
 R07,Cash share of activity above 30%,Activity review,Money Laundering Regulations 2017 reg. 33(6)(a)(v) (cash-intensive business),Illustrative threshold (30%),10
 R08,Share of flows to or from FATF-listed jurisdictions above 10%,Activity review,"Money Laundering Regulations 2017 reg. 33(6)(c), 28(11)(a)",Illustrative threshold (10%),15
 R09,Two or more transaction-monitoring alerts in the month,Trigger review,Money Laundering Regulations 2017 reg. 28(11)(a),Illustrative threshold (2 alerts),15
-R10,"Identity, address or incorporation document missing, pending or expired",Refresh CDD documents,"Money Laundering Regulations 2017 reg. 28(2)(a)-(b), 28(3), 28(11)(b)",Regulation requires up-to-date CDD; treatment of expired documents is bank policy,10
+R10,"Identity, address or incorporation document missing, pending or expired",Refresh CDD documents,"Money Laundering Regulations 2017 reg. 28(2)(a)-(b), 28(3), 28(11)(b)",Bank policy applying the duty to keep CDD up to date,10
 R11,"Company with no shareholder register, or a beneficial owner (more than 25%) not verified",Identify and verify beneficial owners,"Money Laundering Regulations 2017 reg. 5(1)(b), 28(3A), 28(4)",Required by regulation (more than 25%),15
 R12,"Periodic review overdue (High 1 year, Medium 2 years, Low 3 years)",Schedule review,Money Laundering Regulations 2017 reg. 28(11)(b),Illustrative review cycle,10

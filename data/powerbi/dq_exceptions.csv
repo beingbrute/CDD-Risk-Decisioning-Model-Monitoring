@@ -5,64 +5,64 @@ activity_orphan_customer,error,monthly_activity,CUST09002,1 activity row(s)
 activity_orphan_customer,error,monthly_activity,CUST09003,1 activity row(s)
 activity_orphan_customer,error,monthly_activity,CUST09004,1 activity row(s)
 activity_orphan_customer,error,monthly_activity,CUST09005,1 activity row(s)
-company_without_register,error,customers,CUST00052,no shareholders recorded
-company_without_register,error,customers,CUST00628,no shareholders recorded
-company_without_register,error,customers,CUST02351,no shareholders recorded
-company_without_register,error,customers,CUST04191,no shareholders recorded
-company_without_register,error,customers,CUST04580,no shareholders recorded
-duplicate_customer_id,error,customers,CUST00579,appears 2 times
-duplicate_customer_id,error,customers,CUST01708,appears 2 times
-duplicate_customer_id,error,customers,CUST02884,appears 2 times
-duplicate_customer_id,error,customers,CUST04068,appears 2 times
+company_without_register,error,customers,CUST00199,no shareholders recorded
+company_without_register,error,customers,CUST01189,no shareholders recorded
+company_without_register,error,customers,CUST01309,no shareholders recorded
+company_without_register,error,customers,CUST02880,no shareholders recorded
+company_without_register,error,customers,CUST04214,no shareholders recorded
+duplicate_customer_id,error,customers,CUST00118,appears 2 times
+duplicate_customer_id,error,customers,CUST01407,appears 2 times
+duplicate_customer_id,error,customers,CUST03250,appears 2 times
+duplicate_customer_id,error,customers,CUST04392,appears 2 times
 duplicate_customer_id,error,customers,CUST04505,appears 2 times
-invalid_risk_rating,error,customers,CUST00494,"risk_rating = ""Hgh"""
-invalid_risk_rating,error,customers,CUST00500,"risk_rating = ""LOW """
-invalid_risk_rating,error,customers,CUST02482,"risk_rating = ""Med"""
-invalid_risk_rating,error,customers,CUST02519,"risk_rating = ""Unknown"""
-invalid_risk_rating,error,customers,CUST03400,"risk_rating = ""medium"""
-invalid_risk_rating,error,customers,CUST04704,"risk_rating = ""N/A"""
-missing_country_code,error,customers,CUST00558,country_code is blank
-missing_country_code,error,customers,CUST00850,country_code is blank
-missing_country_code,error,customers,CUST02968,country_code is blank
-missing_country_code,error,customers,CUST03253,country_code is blank
-missing_country_code,error,customers,CUST03266,country_code is blank
-missing_country_code,error,customers,CUST03769,country_code is blank
-missing_country_code,error,customers,CUST03793,country_code is blank
-missing_country_code,error,customers,CUST03950,country_code is blank
-negative_txn_value,error,monthly_activity,CUST00973,2025-12: -13945.79
-negative_txn_value,error,monthly_activity,CUST02919,2025-12: -99237.49
-negative_txn_value,error,monthly_activity,CUST03579,2025-12: -11238.14
-negative_txn_value,error,monthly_activity,CUST03996,2025-12: -10920.47
-negative_txn_value,error,monthly_activity,CUST04697,2025-12: -2504.03
-pep_rating_policy_exception,warning,customers,CUST01366,domestic PEP rated Low
-pep_rating_policy_exception,warning,customers,CUST03254,domestic PEP rated Low
-pep_rating_policy_exception,warning,customers,CUST04240,domestic PEP rated Low
-pep_rating_policy_exception,warning,customers,CUST04252,domestic PEP rated Low
-pep_rating_policy_exception,warning,customers,CUST04314,domestic PEP rated Low
-register_not_100,error,company_shareholders,CUST01685,shares total 115.0%
-register_not_100,error,company_shareholders,CUST01811,shares total 115.0%
-register_not_100,error,company_shareholders,CUST02382,shares total 115.0%
-register_not_100,error,company_shareholders,CUST02447,shares total 115.0%
-register_not_100,error,company_shareholders,CUST03527,shares total 115.0%
-register_not_100,error,company_shareholders,CUST03802,shares total 115.0%
-register_not_100,error,company_shareholders,CUST04956,shares total 115.0%
-review_cycle_mismatch,error,customers,CUST00115,"Low: expected 2028-07-27, recorded 2030-07-27"
-review_cycle_mismatch,error,customers,CUST00439,"Medium: expected 2027-08-08, recorded 2030-08-07"
-review_cycle_mismatch,error,customers,CUST00981,"Low: expected 2026-01-12, recorded 2028-01-12"
-review_cycle_mismatch,error,customers,CUST01823,"Low: expected 2028-12-09, recorded 2030-12-09"
-review_cycle_mismatch,error,customers,CUST02347,"Low: expected 2026-11-06, recorded 2028-11-05"
-review_cycle_mismatch,error,customers,CUST03072,"Low: expected 2026-06-14, recorded 2028-06-13"
-review_date_in_future,error,customers,CUST00880,last_review_date = 2026-02-14
-review_date_in_future,error,customers,CUST01090,last_review_date = 2026-02-14
-review_date_in_future,error,customers,CUST01909,last_review_date = 2026-02-14
-review_date_in_future,error,customers,CUST01931,last_review_date = 2026-02-14
-verified_doc_expired,error,documents,CUST00221,Photo ID expired 2025-05-27
-verified_doc_expired,error,documents,CUST00238,Photo ID expired 2025-09-16
-verified_doc_expired,error,documents,CUST00772,Photo ID expired 2025-09-19
-verified_doc_expired,error,documents,CUST01683,Photo ID expired 2025-09-22
-verified_doc_expired,error,documents,CUST01860,Photo ID expired 2025-04-12
-verified_doc_expired,error,documents,CUST02899,Photo ID expired 2024-12-25
-verified_doc_expired,error,documents,CUST02991,Photo ID expired 2024-12-04
-verified_doc_expired,error,documents,CUST04029,Photo ID expired 2025-08-05
-verified_doc_expired,error,documents,CUST04038,Photo ID expired 2025-04-29
-verified_doc_expired,error,documents,CUST04946,Photo ID expired 2024-12-09
+invalid_risk_rating,error,customers,CUST00646,"risk_rating = ""Med"""
+invalid_risk_rating,error,customers,CUST00806,"risk_rating = ""LOW """
+invalid_risk_rating,error,customers,CUST01014,"risk_rating = ""Hgh"""
+invalid_risk_rating,error,customers,CUST02571,"risk_rating = ""Unknown"""
+invalid_risk_rating,error,customers,CUST03338,"risk_rating = ""medium"""
+invalid_risk_rating,error,customers,CUST04192,"risk_rating = ""N/A"""
+missing_country_code,error,customers,CUST00530,country_code is blank
+missing_country_code,error,customers,CUST01128,country_code is blank
+missing_country_code,error,customers,CUST02385,country_code is blank
+missing_country_code,error,customers,CUST02909,country_code is blank
+missing_country_code,error,customers,CUST02983,country_code is blank
+missing_country_code,error,customers,CUST04123,country_code is blank
+missing_country_code,error,customers,CUST04328,country_code is blank
+missing_country_code,error,customers,CUST04780,country_code is blank
+negative_txn_value,error,monthly_activity,CUST00769,2025-12: -5994.77
+negative_txn_value,error,monthly_activity,CUST01255,2025-12: -69261.02
+negative_txn_value,error,monthly_activity,CUST02046,2025-12: -5940.07
+negative_txn_value,error,monthly_activity,CUST03633,2025-12: -2715.38
+negative_txn_value,error,monthly_activity,CUST04243,2025-12: -1244.4
+pep_rating_policy_exception,warning,customers,CUST01812,non-domestic PEP rated Low
+pep_rating_policy_exception,warning,customers,CUST02092,non-domestic PEP rated Low
+pep_rating_policy_exception,warning,customers,CUST02137,domestic PEP rated Low
+pep_rating_policy_exception,warning,customers,CUST02949,domestic PEP rated Low
+pep_rating_policy_exception,warning,customers,CUST03868,domestic PEP rated Low
+register_not_100,error,company_shareholders,CUST00163,shares total 115.0%
+register_not_100,error,company_shareholders,CUST00416,shares total 115.0%
+register_not_100,error,company_shareholders,CUST00587,shares total 115.0%
+register_not_100,error,company_shareholders,CUST02289,shares total 115.0%
+register_not_100,error,company_shareholders,CUST02312,shares total 115.0%
+register_not_100,error,company_shareholders,CUST03929,shares total 115.0%
+register_not_100,error,company_shareholders,CUST04991,shares total 115.0%
+review_cycle_mismatch,error,customers,CUST00109,"Low: expected 2028-06-18, recorded 2030-06-18"
+review_cycle_mismatch,error,customers,CUST00340,"Low: expected 2028-10-07, recorded 2030-10-07"
+review_cycle_mismatch,error,customers,CUST00653,"Low: expected 2027-10-08, recorded 2029-10-07"
+review_cycle_mismatch,error,customers,CUST00795,"Medium: expected 2027-10-27, recorded 2030-10-26"
+review_cycle_mismatch,error,customers,CUST01522,"Low: expected 2028-08-21, recorded 2030-08-21"
+review_cycle_mismatch,error,customers,CUST03624,"Low: expected 2028-06-12, recorded 2030-06-12"
+review_date_in_future,error,customers,CUST01613,last_review_date = 2026-02-14
+review_date_in_future,error,customers,CUST02153,last_review_date = 2026-02-14
+review_date_in_future,error,customers,CUST02693,last_review_date = 2026-02-14
+review_date_in_future,error,customers,CUST04508,last_review_date = 2026-02-14
+verified_doc_expired,error,documents,CUST00497,Photo ID expired 2025-09-28
+verified_doc_expired,error,documents,CUST00686,Photo ID expired 2025-06-06
+verified_doc_expired,error,documents,CUST01507,Photo ID expired 2025-09-29
+verified_doc_expired,error,documents,CUST01786,Photo ID expired 2025-10-19
+verified_doc_expired,error,documents,CUST02072,Photo ID expired 2025-10-08
+verified_doc_expired,error,documents,CUST02371,Photo ID expired 2025-10-11
+verified_doc_expired,error,documents,CUST02637,Photo ID expired 2025-07-20
+verified_doc_expired,error,documents,CUST02812,Photo ID expired 2025-06-30
+verified_doc_expired,error,documents,CUST03903,Photo ID expired 2025-01-25
+verified_doc_expired,error,documents,CUST04695,Photo ID expired 2025-11-19

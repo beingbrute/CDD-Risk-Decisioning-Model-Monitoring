@@ -1,9 +1,9 @@
 period,approach,cases,cases_flagged,workload,precision,recall,period_start
-train,Model,3087,839,0.272,0.365,0.587,2025-01-01
-train,Rules process,3087,1451,0.470,0.246,0.685,2025-01-01
-validation,Model,1067,308,0.289,0.354,0.619,2025-07-01
-validation,Rules process,1067,504,0.472,0.216,0.619,2025-07-01
-test,Model,547,156,0.285,0.359,0.615,2025-09-01
-test,Rules process,547,257,0.470,0.230,0.648,2025-09-01
-monitoring,Model,1673,477,0.285,0.354,0.585,2025-10-01
-monitoring,Rules process,1673,893,0.534,0.243,0.751,2025-10-01
+train,Model,3074,961,0.313,0.356,0.684,2025-01-01
+train,Rules process,3074,1398,0.455,0.235,0.658,2025-01-01
+validation,Model,1018,314,0.308,0.341,0.690,2025-07-01
+validation,Rules process,1018,487,0.478,0.220,0.690,2025-07-01
+test,Model,540,173,0.320,0.364,0.685,2025-09-01
+test,Rules process,540,257,0.476,0.261,0.728,2025-09-01
+monitoring,Model,1590,531,0.334,0.377,0.717,2025-10-01
+monitoring,Rules process,1590,788,0.496,0.239,0.674,2025-10-01

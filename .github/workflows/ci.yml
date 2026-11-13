@@ -38,5 +38,7 @@ jobs:
         run: python src/train_model.py
       - name: 8. Monitoring
         run: python src/monitor.py
-      - name: 9. Tests
+      - name: 9. Power BI export
+        run: python src/export_powerbi.py
+      - name: 10. Tests
         run: python -m pytest -v

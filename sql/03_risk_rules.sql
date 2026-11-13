@@ -4,8 +4,9 @@
 -- "evaluation":
 --   PORTFOLIO  every customer as at the as-at date (31 Dec 2025), using
 --              December 2025 activity       -> feeds the review queue
---   CASE       every analyst review case on its own review date, using that
---              month's activity              -> feeds rule effectiveness
+--   CASE       every analyst review case on its own review date, using the last
+--              month completed before the review -> feeds rule effectiveness
+--              (the review month's own totals include days after the review date)
 --
 -- Country status is point-in-time: a country counts as a UK high-risk third
 -- country only if it was on a FATF list on the evaluation date
@@ -42,7 +43,7 @@ SELECT 'PORTFOLIO'::text AS eval_type,
        date_trunc('month', p.as_of_date)::date AS activity_month
 FROM staging.customers c CROSS JOIN staging.run_parameters p
 UNION ALL
-SELECT 'CASE', r.case_id, r.customer_id, r.review_date, r.review_month
+SELECT 'CASE', r.case_id, r.customer_id, r.review_date, (r.review_month - INTERVAL '1 month')::date
 FROM staging.review_cases r
 WHERE EXISTS (SELECT 1 FROM staging.customers c WHERE c.customer_id = r.customer_id);
 ALTER TABLE analytics.rule_evaluations ADD PRIMARY KEY (eval_id);

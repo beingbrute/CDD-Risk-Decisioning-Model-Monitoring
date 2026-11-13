@@ -1,13 +1,13 @@
 rule_code,description,cases_flagged,escalated_flagged,flag_rate,precision,recall,lift
-ANY,Any rule fires,3105,742,0.487,0.239,0.689,1.41
-R01,Customer established in a UK high-risk third country on the review date,230,68,0.036,0.296,0.063,1.75
-R02,Beneficial owner (more than 25%) established in a FATF-listed jurisdiction,145,35,0.023,0.241,0.032,1.43
-R03,Customer or beneficial owner is a PEP,153,24,0.024,0.157,0.022,0.93
-R04,Unresolved potential sanctions screening match,148,48,0.023,0.324,0.045,1.92
-R05,Adverse media on the customer,217,51,0.034,0.235,0.047,1.39
-R06,Monthly activity more than 2x declared expected turnover,1055,381,0.166,0.361,0.354,2.14
-R07,Cash share of activity above 30%,508,124,0.080,0.244,0.115,1.44
-R08,Share of flows to or from FATF-listed jurisdictions above 10%,111,42,0.017,0.378,0.039,2.24
-R09,Two or more transaction-monitoring alerts in the month,577,202,0.091,0.350,0.188,2.07
-R10,"Identity, address or incorporation document missing, pending or expired",1003,198,0.157,0.197,0.184,1.17
-R11,"Company with no shareholder register, or a beneficial owner (more than 25%) not verified",168,24,0.026,0.143,0.022,0.85
+ANY,Any rule fires,2930,691,0.471,0.236,0.673,1.43
+R01,Customer established in a UK high-risk third country on the review date,231,75,0.037,0.325,0.073,1.97
+R02,Beneficial owner (more than 25%) established in a FATF-listed jurisdiction,154,36,0.025,0.234,0.035,1.42
+R03,Customer or beneficial owner is a PEP,138,21,0.022,0.152,0.020,0.92
+R04,Unresolved potential sanctions screening match,140,39,0.023,0.279,0.038,1.69
+R05,Adverse media on the customer,206,50,0.033,0.243,0.049,1.47
+R06,Monthly activity more than 2x declared expected turnover,959,355,0.154,0.370,0.346,2.24
+R07,Cash share of activity above 30%,471,122,0.076,0.259,0.119,1.57
+R08,Share of flows to or from FATF-listed jurisdictions above 10%,125,50,0.020,0.400,0.049,2.43
+R09,Two or more transaction-monitoring alerts in the month,516,174,0.083,0.337,0.170,2.04
+R10,"Identity, address or incorporation document missing, pending or expired",974,182,0.157,0.187,0.177,1.13
+R11,"Company with no shareholder register, or a beneficial owner (more than 25%) not verified",153,30,0.025,0.196,0.029,1.19

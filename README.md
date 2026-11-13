@@ -19,7 +19,7 @@ A CDD team has to keep customer records complete and correct, decide which custo
 ## How it works
 
 ```
-generate_data.py      8 CSV files: synthetic customers, owners, documents, activity, review cases
+generate_data.py      8 CSV files: synthetic customers, owners, documents, activity (Oct 2024-Dec 2025), review cases (2025)
                       + real FATF list history (Oct 2024 - Oct 2025) + 12 CDD rules with legal basis
         ↓
 load_postgres.py      PostgreSQL database cdd:  RAW (as delivered, all text)
@@ -52,7 +52,7 @@ Since SI 2024/69, a UK "high-risk third country" (MLR 2017 reg. 33(3)(a)) is any
 | R07 | Cash share above 30% | reg. 33(6)(a)(v) | Illustrative threshold |
 | R08 | Flows to or from FATF-listed jurisdictions above 10% | reg. 33(6)(c), 28(11)(a) | Illustrative threshold |
 | R09 | 2 or more monitoring alerts in a month | reg. 28(11)(a) | Illustrative threshold |
-| R10 | Document missing, pending or expired | reg. 28(2), 28(3), 28(11)(b) | Statutory |
+| R10 | Document missing, pending or expired | reg. 28(2), 28(3), 28(11)(b) | Bank judgement (applies the duty to keep CDD up to date) |
 | R11 | No shareholder register, or a beneficial owner not verified | reg. 5(1)(b), 28(3A), 28(4) | Statutory |
 | R12 | Periodic review overdue (High 1, Medium 2, Low 3 years) | reg. 28(11)(b) | Illustrative cycle |
 
@@ -66,28 +66,30 @@ Full wording, next actions and sources: `data/raw/cdd_rules.csv` (created by the
 11 checks found all **67 planted issues: 67 matched, 0 missed, 0 extra**. Invalid values such as a risk rating of "LOW " are flagged, not auto-corrected, because a rating is a decision that must be fixed at source. A PEP rated below internal policy is reported as a policy exception (warning), not as a regulatory breach.
 
 ### 2. Review queue (as at 31 December 2025)
-**2,447 of 5,000 customers** have at least one rule hit: **169 P1** (every unresolved sanctions match is P1), **553 P2**, **1,725 P3**. **533 periodic reviews are overdue.**
+**2,438 of 5,000 customers** have at least one rule hit: **170 P1** (every unresolved sanctions match is P1), **554 P2**, **1,714 P3**. **531 periodic reviews are overdue.**
 
-### 3. Rule effectiveness (6,374 review cases, 2025)
-- The rules flag **49% of cases** and catch **69% of escalations**, with **24% precision**.
+### 3. Rule effectiveness (6,222 review cases, 2025)
+Each case is evaluated on its review date, using only activity from months completed before the review.
+- The rules flag **47% of cases** and catch **67% of escalations**, with **24% precision**.
 - Activity rules discriminate best: R06, R08 and R09 have lift above 2.
-- R03 (PEP) and R11 (beneficial ownership) have lift below 1. They are **not** candidates for removal: they are statutory requirements. Only the illustrative thresholds (R06-R09, R12) are open to tuning.
+- R03 (PEP) has lift below 1. It is **not** a candidate for removal: EDD for PEPs is a statutory requirement. Only the illustrative thresholds (R06-R09, R12) are open to tuning.
 
 ### 4. Escalation model
 Protocol fixed before training: **train** Jan-Jun 2025, **validation** Jul-Aug (choose model and threshold), **test** Sep (used once), **monitoring** Oct-Dec.
 
-- Logistic regression kept as champion: the random forest was not better on validation (PR-AUC −0.003; the pre-set rule needed +0.02 to accept the less explainable model).
+**Same information cutoff for everything:** the model's features, the rules baseline and the simulated analyst outcome all use only activity from months completed before the review month (the review month's totals include days after the review date). Country status is taken on the review date. The bank's risk rating is a 31 Dec 2025 value, so the model does not use it; it appears only as a retrospective baseline.
+
+- Logistic regression kept as champion: the random forest was not better on validation (PR-AUC −0.010; the pre-set rule needed +0.02 to accept the less explainable model).
 - Threshold set on validation to match the rules' recall with the least workload.
-- **September test:** AUC **0.762** (95% CI 0.709-0.812). The model flagged **156 of 547 cases** against **257** for the rules (39% fewer), with precision **0.36 vs 0.23** and recall **0.615 vs 0.648**. The bank's static risk rating alone gives AUC 0.59.
-- Activity features use only **completed months before the review**: the review month's totals include days after the review date. This costs about 0.015 AUC and removes the leak.
+- **September test:** AUC **0.792** (95% CI 0.742-0.840). The model flagged **173 of 540 cases** against **257** for the rules (33% fewer), with precision **0.36 vs 0.26** and recall **0.685 vs 0.728**: fewer reviews for slightly lower capture. The rules' points score gives AUC 0.71; the bank's 31 Dec risk rating gives 0.57.
 
 Details: [`reports/model_validation.md`](reports/model_validation.md).
 
 ### 5. Monitoring
-- **July-September: stable** (all PSI below 0.08).
-- From October, Online customers' cross-border activity drifts: portfolio PSI **0.11 → 0.20 → 0.29** (investigate in October and November, act in December). The model's input follows one month later (0.04 → 0.16 → 0.25); the model score stays stable (PSI ≤ 0.08) and AUC stays above the trigger level every month.
+- **July-September: stable** (all PSI below 0.05).
+- From October, Online customers' cross-border activity drifts: portfolio PSI **0.10 → 0.20 → 0.29** (investigate in October and November, act in December). The model's input follows one month later (0.03 → 0.13 → 0.22); the model score stays stable (PSI ≤ 0.03) and monthly AUC stays between 0.785 and 0.813, above the trigger level of 0.751.
 - **Decision:** one breach (December) does not meet the pre-set two-consecutive-month retraining rule. Action: investigate the Online segment, confirm performance as outcomes arrive, prepare retraining if January also breaches.
-- **Trade-off found:** in October-December the model kept workload at 29% but its recall fell to 0.585, while the rules caught 0.751 at 53% workload. The activity rules react to the current month; the model sees it a month later.
+- **October-December:** the model flagged 33% of cases and caught 72% of escalations; the rules flagged 50% and caught 67%.
 
 Details: [`reports/monitoring.md`](reports/monitoring.md).
 
@@ -105,8 +107,8 @@ Details: [`reports/monitoring.md`](reports/monitoring.md).
 
 ## Testing
 
-- **40 pytest tests**, all passing (`tests/`). They include an independent pandas recomputation of rules R06-R09 and R12, point-in-time FATF checks (Nigeria, Virgin Islands (UK)), leakage checks (no period overlap; activity features from the month before the review), and a regression test for defect D1.
-- **CI:** GitHub Actions rebuilds the whole pipeline from an empty PostgreSQL database and runs the tests on every push (`.github/workflows/ci.yml`).
+- **57 pytest tests**, all passing (`tests/`). They include an independent pandas recomputation of rules R06-R09 and R12, point-in-time FATF checks (Nigeria, Virgin Islands (UK)), information-cutoff checks (no activity from after the review date in rules, triggers or features; the 31 Dec rating not used by the model), a regression test for defect D1, and checks on every Power BI export file.
+- **CI:** GitHub Actions rebuilds the whole pipeline from an empty PostgreSQL database, produces the Power BI export and runs the tests on every push (`.github/workflows/ci.yml`).
 - **Test plan** with 18 test cases and the defect log: [`docs/test_plan.md`](docs/test_plan.md).
 
 ### Defects found
@@ -117,6 +119,8 @@ Details: [`reports/monitoring.md`](reports/monitoring.md).
 | D2 | Dashboard check against FATF lists | Power BI read list versions such as "2024-10" as dates and grouped them by year, showing wrong statuses | Set the column to Text |
 | D3 | Building the data model | A text-only CSV loaded without column names | Use first row as headers |
 | D4 | Model view review | Power BI auto-created relationships on unrelated columns | Replaced with 5 relationships on keys |
+| D5 | Independent review | The rules baseline and the simulated outcome used the whole review month's activity (including days after the review date), while the model used only earlier months, so the comparison was not like for like. The model also used the 31 Dec risk rating | One information cutoff for rules, triggers, features and outcome; rating removed from the model; data regenerated and all results re-run; regression tests added |
+| D6 | Independent review | R10 (expired documents) was labelled statutory | Relabelled as bank judgement applying the duty to keep CDD up to date |
 
 ---
 
@@ -144,7 +148,7 @@ CDD-Risk-Decisioning-Model-Monitoring/
 ├── src/          generate_data.py, load_postgres.py, run_sql.py,
 │                 train_model.py, monitor.py, export_powerbi.py
 ├── sql/          01_staging … 06_model_features
-├── tests/        40 pytest tests
+├── tests/        57 pytest tests
 ├── reports/      model_validation.md, monitoring.md, charts, result tables
 ├── dashboard/    cdd_dashboard.pbix
 ├── data/powerbi/ dashboard data (data/raw is regenerated, not stored)
@@ -157,7 +161,8 @@ CDD-Risk-Decisioning-Model-Monitoring/
 - Customers, activity and analyst outcomes are synthetic; the escalation outcome was simulated separately from the rules, including a factor no rule or model sees.
 - Country risk uses the FATF lists that define UK high-risk third countries; other geographical risk factors (for example corruption indices) are not included.
 - The rules follow published UK regulation; numeric thresholds and review cycles are illustrative bank-policy values, not a bank's actual rulebook.
-- Documents and shareholder registers exist only as a 31 December 2025 snapshot. There is no sanctions-match resolution field, so every screening hit is treated as unresolved.
+- Documents and shareholder registers exist only as a 31 December 2025 snapshot, so R10, R11 and the related model inputs are retrospective for earlier reviews. There is no sanctions-match resolution field, so every screening hit is treated as unresolved.
+- The Power BI file is tested by hand; CI checks the data it reads.
 - Not covered: real CDD decision-making, work with banking stakeholders, team-based Agile delivery, and other BI tools such as QuickSight.
 
 ---
